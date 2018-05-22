@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
+
+chan get_center;</declaration><template><name x="5" y="5">Vehicle</name><parameter>bool &amp;acquired, urgent chan &amp;released</parameter><declaration>// Place local declarations here.
+clock x;</declaration><location id="id0" x="-128" y="-56"><name x="-138" y="-90">move</name><label kind="invariant" x="-138" y="-41">x&lt;=30</label></location><location id="id1" x="-424" y="-56"><name x="-458" y="-39">stop</name></location><init ref="id1"/><transition><source ref="id1"/><target ref="id0"/><label kind="synchronisation" x="-336" y="-71">get_center?</label><label kind="assignment" x="-336" y="-56">acquired=true,
+x=0</label></transition><transition><source ref="id0"/><target ref="id1"/><label kind="synchronisation" x="-336" y="-136">released?</label><label kind="assignment" x="-336" y="-200">x=0,
+acquired=false</label><nail x="-128" y="-160"/><nail x="-432" y="-160"/></transition></template><template><name>Center</name><parameter>bool &amp;acquired,urgent chan &amp;released</parameter><location id="id2" x="-144" y="-42"><name x="-154" y="-76">taken</name></location><location id="id3" x="-289" y="-34"><name x="-299" y="-68">free</name></location><init ref="id3"/><transition><source ref="id2"/><target ref="id3"/><label kind="synchronisation" x="-256" y="-24">released!</label><nail x="-212" y="34"/></transition><transition><source ref="id3"/><target ref="id2"/><label kind="guard" x="-248" y="-88">!acquired</label><label kind="synchronisation" x="-256" y="-72">get_center!</label><nail x="-225" y="-131"/></transition></template><system>// Place template instantiations here.
+bool acquired;
+urgent chan released;
+Vehicle1 = Vehicle(acquired,released);
+Vehicle2 = Vehicle(acquired,released);
+Vehicle3 = Vehicle(acquired,released);
+Vehicle4 = Vehicle(acquired,released);
+Center1 = Center(acquired,released);
+// List one or more processes to be composed into a system.
+system Vehicle1, Vehicle2,Vehicle3,Vehicle4, Center1;
+    </system></nta>
